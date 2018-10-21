@@ -1,0 +1,24 @@
+Feature: Can I pay over a limit?
+
+  Scenario: Pay over a limit 
+    Given 200 PLN on the account
+    When I try to pay 500 PLN
+    Then I should get error message
+	And I check I did not pay any money
+	And I have on my account 200 PLN 
+	
+	
+Feature: Can I pay under the limit?
+
+  Scenario: Pay under the limit 
+    Given 200 PLN on the account
+    When I try to pay |Pay|
+    Then I should get |Pay|
+	And I have on my account |Left|
+	
+Examples:
+	| Pay | Left |
+    | "50 PLN" | "150 PLN" |
+    | "100 PLN" | "100 PLN" |
+    | "150 PLN" | "50 PLN" |
+	| "2000 PLN" | "0 PLN" |
